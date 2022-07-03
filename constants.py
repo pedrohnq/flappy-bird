@@ -7,6 +7,7 @@ BACKGROUND = pg.image.load(os.path.join('images', 'bg.png'))
 BIRD_1 = pg.image.load(os.path.join('images', 'bird1.png'))
 BIRD_2 = pg.image.load(os.path.join('images', 'bird2.png'))
 BIRD_3 = pg.image.load(os.path.join('images', 'bird3.png'))
+FLOOR = pg.image.load(os.path.join('images', 'base.png'))
 BIRD_INITIAL_X = 75
 BIRD_INITIAL_Y = 300
 BACKGROUND_INITIAL_X = 0
