@@ -7,11 +7,12 @@ def main():
     pg.init()
     game = FlappyBird()
     background = Background()
+    bird = Bird()
     clock = pg.time.Clock()
     while game.running:
-        check_events(game)
+        check_events(game, bird)
         clock.tick(30)
-        game.update_screen(background)
+        game.update_screen(background, bird)
         pg.display.update() 
 
 
