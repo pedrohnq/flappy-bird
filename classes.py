@@ -1,4 +1,3 @@
-from time import sleep
 import pygame as pg
 from constants import *
 
@@ -47,17 +46,29 @@ class Background(GameObject):
     def draw(self, screen):
         screen_width = screen.get_size()[0]
         aux_bg_x = screen_width + self.x
-        self.x -= 1
+        self.x -= 0.5
         if self.x < -1 * screen_width:
             self.x = 0
         super().draw(screen, aux_bg_x, self.y)
         super().draw(screen, self.x, self.y)
 
+
 class Pipe(GameObject):
     pass
 
 class Floor(GameObject):
-    pass
+    def __init__(self):
+        self.x = 0
+        self.y = 400
+        self.image = FLOOR
+    def draw(self, screen):
+        screen_width = screen.get_size()[0]
+        aux_floor_x = screen_width + self.x
+        self.x -= 2
+        if self.x < -1 * screen_width:
+            self.x = 0
+        super().draw(screen, aux_floor_x, self.y)
+        super().draw(screen, self.x, self.y)
 
 class FlappyBird:
     def __init__(self):
@@ -67,9 +78,9 @@ class FlappyBird:
     def fly_bird(self, bird):
         bird.fly()
         
-    def update_screen(self, background, bird):
-        background.draw(self.screen)
-        bird.draw(self.screen)
+    def update_screen(self, *objects):
+        for obj in objects:
+            obj.draw(self.screen)
     
     def handle_exit(self):
         self.running = False
