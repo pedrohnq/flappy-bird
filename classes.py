@@ -1,3 +1,4 @@
+from random import randrange
 import pygame as pg
 from constants import *
 
@@ -55,6 +56,7 @@ class Background(GameObject):
 
 class Pipe(GameObject):
     pass
+
 
 class Floor(GameObject):
     def __init__(self):
