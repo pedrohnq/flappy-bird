@@ -1,6 +1,7 @@
 from functions import check_events
 import pygame as pg
 from classes import *
+from components import *
 
 
 def main():
