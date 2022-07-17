@@ -38,3 +38,14 @@ class FlappyBird:
                 pipe.passed = True
                 self.score += 1
                 self.can_create_pipe = True
+    
+    def check_collisions(self, bird, pipes, floor):
+        if bird.y + bird.image.get_width() >= floor.y:
+            self.running = False
+        bird_mask = bird.get_mask()
+        for pipe in pipes:
+            top_collision = bird_mask.overlap(pipe.get_top_mask(), (pipe.x - bird.x, pipe.pipe_top_y - bird.y))
+            base_collision = bird_mask.overlap(pipe.get_base_mask(), (pipe.x - bird.x, pipe.pipe_base_y - bird.y))
+            if top_collision or base_collision:
+                self.running = False
+        

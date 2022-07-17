@@ -13,14 +13,14 @@ def main():
     pipes = []
     clock = pg.time.Clock()
     while game.running:
+        clock.tick(30)
         if game.started and game.can_create_pipe:
             pipes.append(game.generate_pipe(Pipe))
         check_events(game, bird)
-        clock.tick(30)
+        game.check_collisions(bird, pipes, floor)
         game.update_screen(background, bird, *pipes, floor)
         game.remove_old_pipes(pipes)
         game.update_score(pipes, bird)
-
         pg.display.update() 
 
 

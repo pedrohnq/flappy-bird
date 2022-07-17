@@ -1,5 +1,6 @@
 from .game_object import GameObject
 import constants
+import pygame as pg
 
 class Bird(GameObject):
     def __init__(self):
@@ -31,3 +32,6 @@ class Bird(GameObject):
         self.is_falling = False
         self.y -= 50
         self.is_falling = True
+    
+    def get_mask(self):
+        return pg.mask.from_surface(self.image)
