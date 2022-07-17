@@ -1,5 +1,6 @@
 
 
 class GameObject:
-    def draw(self, screen, x, y):
-        screen.blit(self.image, (x, y))
+    def draw(self, screen, x, y, **kwargs):
+        image = kwargs.get('image', self.image)
+        screen.blit(image, (x, y))
