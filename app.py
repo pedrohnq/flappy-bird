@@ -10,6 +10,7 @@ def main():
     background = Background()
     bird = Bird()
     floor = Floor()
+    score = Score()
     pipes = []
     clock = pg.time.Clock()
     while game.running:
@@ -18,9 +19,9 @@ def main():
             pipes.append(game.generate_pipe(Pipe))
         check_events(game, bird)
         game.check_collisions(bird, pipes, floor)
-        game.update_screen(background, bird, *pipes, floor)
+        game.update_screen(background, bird, *pipes, floor, score)
         game.remove_old_pipes(pipes)
-        game.update_score(pipes, bird)
+        game.update_score(pipes, bird, score)
         pg.display.update() 
 
 
