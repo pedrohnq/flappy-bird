@@ -1,3 +1,4 @@
+from random import choice
 import pygame as pg
 import constants
 from components import *
@@ -8,8 +9,10 @@ class FlappyBird:
         self.screen = pg.display.set_mode((constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT))
         self.started = False
         self.can_create_pipe = False
+        self.can_create_fruit = False
         self.lost = False
         self.pipes = []
+        self.fruits = []
         self.bird = None
         self.background = None
         self.floor = None
@@ -28,7 +31,7 @@ class FlappyBird:
         if self.lost:
             objects = [self.background, self.floor, self.restart_text]
         else:
-            objects = [self.background, self.bird, *self.pipes, self.floor, self.score]
+            objects = [self.background, self.bird, *self.pipes, self.floor, self.score, *self.fruits]
         for obj in objects:
             obj.draw(self.screen)
         pg.display.update()
@@ -37,9 +40,12 @@ class FlappyBird:
         self.running = False
     
     def generate_pipe(self):
-        print(constants.SPEED_PIPES)
         self.pipes.append(Pipe())
         self.can_create_pipe = False
+
+    def generate_fruit(self):
+        self.fruits.append(Fruit())
+        self.can_create_fruit = False
     
     def remove_old_pipes(self):
         for pipe in self.pipes:
@@ -52,6 +58,7 @@ class FlappyBird:
                 pipe.passed = True
                 self.score.value += 1
                 self.can_create_pipe = True
+                self.can_create_fruit = choice([not bool(i) for i in range(10)])
                 self.speed += 2
     
     def check_collisions(self):
@@ -64,6 +71,12 @@ class FlappyBird:
             base_collision = bird_mask.overlap(pipe.get_base_mask(), (pipe.x - self.bird.x, pipe.pipe_base_y - self.bird.y))
             if top_collision or base_collision:
                 has_collision = True
+        for fruit in self.fruits:
+            eat_fruit = bird_mask.overlap(fruit.get_mask(), (fruit.x - self.bird.x, fruit.y - self.bird.y))
+            if eat_fruit:
+                self.score.value += 2
+                fruit_index = self.fruits.index(fruit)
+                self.fruits.pop(fruit_index)
         if has_collision:
             if self.best_score < self.score.value:
                 self.best_score = self.score.value
@@ -82,6 +95,7 @@ class FlappyBird:
         self.started = False
         self.lost = False
         self.pipes = []
+        self.fruits = []
 
     def restart(self):
         self.init_states()

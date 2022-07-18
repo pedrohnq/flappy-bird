@@ -20,6 +20,8 @@ def main():
                 if game.can_create_pipe:
                     game.generate_pipe()
                     constants.SPEED_PIPES += 0.2
+                if game.can_create_fruit:
+                    game.generate_fruit()
                 game.check_collisions()
                 game.remove_old_pipes()
                 game.update_score()
