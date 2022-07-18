@@ -15,7 +15,7 @@ class Pipe(GameObject):
         self.pipe_base_y = self.pipe_top_y + self.pipe_top.get_height() + 90
 
     def draw(self, screen):
-        self.x -= 2
+        self.x -= constants.SPEED_PIPES
         super().draw(screen, self.x, self.pipe_top_y, image = self.pipe_top)
         super().draw(screen, self.x, self.pipe_base_y, image = self.pipe_base)
     

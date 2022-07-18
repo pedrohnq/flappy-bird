@@ -1,5 +1,6 @@
-from .backgroud import Background
+from .background import Background
 from .bird import Bird
 from .floor import Floor
 from .pipe import Pipe
 from .score import Score
+from .restart_text import RestartText
