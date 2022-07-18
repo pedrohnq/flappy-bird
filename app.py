@@ -2,28 +2,29 @@ from functions import check_events
 import pygame as pg
 from classes import *
 from components import *
+import constants
+
+
+pg.init()
 
 
 def main():
-    pg.init()
     game = FlappyBird()
-    background = Background()
-    bird = Bird()
-    floor = Floor()
-    score = Score()
-    pipes = []
+    game.init_objects()
     clock = pg.time.Clock()
     while game.running:
         clock.tick(30)
-        if game.started and game.can_create_pipe:
-            pipes.append(game.generate_pipe(Pipe))
-        check_events(game, bird)
-        game.check_collisions(bird, pipes, floor)
-        game.update_screen(background, bird, *pipes, floor, score)
-        game.remove_old_pipes(pipes)
-        game.update_score(pipes, bird, score)
-        pg.display.update() 
+        check_events(game)
+        if not game.lost:
+            if game.started:
+                if game.can_create_pipe:
+                    game.generate_pipe()
+                    constants.SPEED_PIPES += 0.2
+                game.check_collisions()
+                game.remove_old_pipes()
+                game.update_score()
 
-
+        game.update_screen()
+        
 if __name__ == '__main__':
     main()
